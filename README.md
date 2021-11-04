@@ -157,4 +157,221 @@ class and try to keep them in mind.
 
 **[⬆ Back to Top](#table-of-contents)**
 
+5. ### Stream Operations
+
+> Intermediate Operations : Intermediate operations return the stream itself so you can chain multiple methods calls in a row.
+
+`Stream.filter()` The filter() method accepts a Predicate to filter all elements of the stream. This operation is
+intermediate which enables us to call another stream operation (e.g. forEach()) on the result.
+
+```text
+memberNames.stream()
+           .filter((s) -> s.startsWith("A"))
+           .forEach(System.out::println);
+
+Output:
+A
+Aa
+Abc   
+```
+
+`Stream.map()` The map() intermediate operation converts each element in the stream into another object via the given
+function.
+
+```text
+memberNames.stream().filter((s) -> s.startsWith("A"))
+                    .map(String::toUpperCase)
+                    .forEach(System.out::println);
+                    
+Output:
+A
+AA
+ABC   
+```
+
+`Stream.sorted()` The sorted() method is an intermediate operation that returns a sorted view of the stream.
+
+```text
+memberNames.stream().sorted()
+                    .map(String::toUpperCase)
+                    .forEach(System.out::println);
+
+Output:
+A
+AA
+ABC                
+```
+
+Please note that the sorted() method only creates a sorted view of the stream without manipulating the ordering of the
+source Collection.
+
+> Terminal operations : Terminal operations return a result of a certain type after processing all the stream elements. Once the terminal operation is invoked on a Stream, the iteration of the Stream and any of the chained streams will get started. Once the iteration is done, the result of the terminal operation is returned.
+
+`Stream.forEach()` The forEach() method helps in iterating over all elements of a stream and perform some operation on
+each of them. The operation to be performed is passed as the lambda expression.
+
+```text
+memberNames.forEach(System.out::println);
+```
+
+`Stream.collect()` The collect() method is used to receive elements from a steam and store them in a collection.
+
+```text
+List<String> memNamesInUppercase = memberNames.stream().sorted()
+                            .map(String::toUpperCase)
+                            .collect(Collectors.toList());
+         
+System.out.print(memNamesInUppercase);
+
+Output: [A, AA, ABC]
+```
+
+`Stream.match()` Various matching operations can be used to check whether a given predicate matches the stream elements.
+All of these matching operations are terminal and return a boolean result.
+
+```java
+public class AllStreamOperations {
+    public static void main(String[] args) {
+        List<String> listOfCountries = Arrays.asList("India", "Indonesia", "Nepal", "Afghanistan");
+
+        boolean matchedResult = listOfCountries.stream()
+                .anyMatch((s) -> s.startsWith("A"));
+
+        System.out.println(matchedResult); // true
+
+        matchedResult = listOfCountries.stream()
+                .allMatch((s) -> s.startsWith("A"));
+
+        System.out.println(matchedResult); // false
+
+        matchedResult = listOfCountries.stream()
+                .noneMatch((s) -> s.startsWith("A"));
+
+        System.out.println(matchedResult); // false
+    }
+}
+```
+
+`Stream.count()` The count() is a terminal operation returning the number of elements in the stream as a long value.
+
+```text
+long totalMatched = memberNames.stream()
+    .filter((s) -> s.startsWith("A"))
+    .count();
+ 
+System.out.println(totalMatched);
+```
+
+`Stream.reduce()` The reduce() method performs a reduction on the elements of the stream with the given function. The
+result is an Optional holding the reduced value.
+
+In the given example, we are reducing all the strings by concatenating them using a separator #.
+
+```java
+public class AllStreamOperations {
+    public static void main(String[] args) {
+        List<String> listOfCountries_1 = Arrays.asList("India", "Indonesia", "Nepal", "Afghanistan");
+
+        Optional<String> reduced = listOfCountries_1.stream()
+                .reduce((s1, s2) -> s1 + "#" + s2);
+
+        reduced.ifPresent(System.out::println); // India#Indonesia#Nepal#Afghanistan
+    }
+}
+```
+
+6. ### Stream Short-circuit Operations
+
+Though stream operations are performed on all elements inside a collection satisfying a Predicate, it is often desired
+to break the operation whenever a matching element is encountered during iteration.
+
+In external iteration, we will do with the if-else block. In the internal iterations such as in streams, there are
+certain methods we can use for this purpose.
+
+`Stream.anyMatch()` The anyMatch() will return true once a condition passed as predicate satisfies. Once a matching
+value is found, no more elements will be processed in the stream.
+
+In the given example, as soon as a String is found starting with the letter 'A', the stream will end and the result will
+be returned.
+
+```text
+boolean matched = memberNames.stream()
+        .anyMatch((s) -> s.startsWith("A"));
+ 
+System.out.println(matched); // true 
+```
+
+`Stream.findFirst()` The findFirst() method will return the first element from the stream and then it will not process
+any more elements.
+
+```text
+String firstMatchedName = memberNames.stream()
+            .filter((s) -> s.startsWith("L"))
+            .findFirst()
+                        .get();
+ 
+System.out.println(firstMatchedName); // LoL
+```
+
+7. ### Parallel Stream
+
+To enable parallelism, all we have to do is to create a parallel stream, instead of a sequential stream. And to
+surprise, this is really very easy.
+
+In any of the above-listed stream examples, anytime we want to do a particular job using multiple threads in parallel
+cores, all we have to call parallelStream() method instead of stream() method.
+
+```java
+public class AllStreamOperations {
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i = 1; i < 10; i++) {
+            list.add(i);
+        }
+
+        //Here creating a parallel stream
+        Stream<Integer> stream = list.parallelStream();
+
+        Integer[] evenNumbersArr = stream.filter(i -> i % 2 == 0).toArray(Integer[]::new);
+        System.out.print(evenNumbersArr);
+    }
+}
+```
+
+8. ### Stream Operations
+
+`Creating Streams`
+
+1. concat()
+2. empty()
+3. generate()
+4. iterate()
+5. of()
+
+`Intermediate Operations`
+
+1. filter()
+2. map()
+3. flatMap()
+4. distinct()
+5. sorted()
+6. peek()
+7. limit()
+8. skip()
+
+`Terminal Operations`
+
+1. forEach()
+2. forEachOrdered()
+3. toArray()
+4. reduce()
+5. collect()
+6. min()
+7. max()
+8. count()
+9. anyMatch()
+10. allMatch()
+11. noneMatch()
+12. findFirst()
+13. findAny()
 
