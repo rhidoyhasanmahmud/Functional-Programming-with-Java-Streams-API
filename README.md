@@ -12,6 +12,8 @@
 |6  | [Stream Short circuit Operations](#Stream-Short-circuit-Operations)|
 |7  | [Parallel Stream](#Parallel-Stream)|
 |8  | [Stream Operations Summary](#Stream-Operations-Summary)|
+|9  | [Difference between map() and flatMap()](#Difference-between-map-and-flatMap)|
+|10 | [Usage of map() vs flatMap()](#Usage-of-map-vs-flatMap)|
 
 1. ### What is Stream?
 
@@ -378,4 +380,59 @@ public class AllStreamOperations {
 11. noneMatch()
 12. findFirst()
 13. findAny()
+
+
+9. ### Difference between map and flatMap
+
+The map() method produces one output value for each input value in the stream. So if there are n elements in the stream,
+map() operation will produce a stream of n output elements.
+
+```text
+List<String> listOfStrings = Arrays.asList("1", "2", "3", "4", "5");
+
+List<Integer> listOfIntegers = listOfStrings.stream()
+                                            .map(Integer::valueOf)
+                                            .collect(Collectors.toList());
+
+System.out.println(listOfIntegers);     //[1, 2, 3, 4, 5]
+```
+
+flatMap() is two-step process i.e. map() + Flattening. It helps in converting
+
+```text
+Collection<Collection<T>> to Collection<T>
+```
+
+```text
+List<Integer> list1 = Arrays.asList(1,2,3);
+List<Integer> list2 = Arrays.asList(4,5,6);
+List<Integer> list3 = Arrays.asList(7,8,9);
+ 
+List<List<Integer>> listOfLists = Arrays.asList(list1, list2, list3);
+ 
+List<Integer> listOfAllIntegers = listOfLists.stream()
+                            .flatMap(x -> x.stream())
+                            .collect(Collectors.toList());
+ 
+System.out.println(listOfAllIntegers);      //[1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+10. ### Usage of map vs flatMap
+
+We can use map() operation when we have a stream of objects, and we need to get some unique value for each element in
+the stream. There is one-to-one mapping between input and output element. For example, we can write a program to find
+the date of birth of all employees in a stream of employees.
+
+In case of flatMap(), a one-to-many mapping is created where for each input element/stream, we first get a multiple
+values, and then we flatten the values from all such input streams into a single output stream. For example, we may
+write program to find all district words from all lines in a text file.
+
+
+
+### Reference
+
+1. [HowToDoInJava.com](https://howtodoinjava.com/java8/java-streams-by-examples/)
+2. [Medium Blog - 1](https://medium.datadriveninvestor.com/java-8-stream-2f2a625b86c4)
+3. [Medium Blog - 2](https://medium.com/javarevisited/java-streams-for-beginners-105ed3aa2f74)
+4. [Blog - 1](https://blog.devgenius.io/java-streams-43e6361dbba3)
 
