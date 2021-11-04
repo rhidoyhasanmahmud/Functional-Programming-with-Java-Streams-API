@@ -11,7 +11,7 @@
 |5  | [Stream Operations](#Stream-Operations)|
 |6  | [Stream Short circuit Operations](#Stream-Short-circuit-Operations)|
 |7  | [Parallel Stream](#Parallel-Stream)|
-|8  | [Stream Operations](#Stream-Operations)|
+|8  | [Stream Operations Summary](#Stream-Operations-Summary)|
 
 1. ### What is Stream?
 
@@ -342,7 +342,7 @@ public class AllStreamOperations {
 }
 ```
 
-8. ### Stream Operations
+8. ### Stream Operations Summary
 
 `Creating Streams`
 
