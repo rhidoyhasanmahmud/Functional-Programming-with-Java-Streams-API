@@ -286,6 +286,8 @@ public class AllStreamOperations {
 }
 ```
 
+**[⬆ Back to Top](#table-of-contents)**
+
 6. ### Stream Short circuit Operations
 
 Though stream operations are performed on all elements inside a collection satisfying a Predicate, it is often desired
@@ -319,6 +321,8 @@ String firstMatchedName = memberNames.stream()
 System.out.println(firstMatchedName); // LoL
 ```
 
+**[⬆ Back to Top](#table-of-contents)**
+
 7. ### Parallel Stream
 
 To enable parallelism, all we have to do is to create a parallel stream, instead of a sequential stream. And to
@@ -343,6 +347,8 @@ public class AllStreamOperations {
     }
 }
 ```
+
+**[⬆ Back to Top](#table-of-contents)**
 
 8. ### Stream Operations Summary
 
@@ -381,8 +387,9 @@ public class AllStreamOperations {
 12. findFirst()
 13. findAny()
 
+**[⬆ Back to Top](#table-of-contents)**
 
-9. ### Difference between map and flatMap
+15. ### Difference between map and flatMap
 
 The map() method produces one output value for each input value in the stream. So if there are n elements in the stream,
 map() operation will produce a stream of n output elements.
@@ -417,6 +424,8 @@ List<Integer> listOfAllIntegers = listOfLists.stream()
 System.out.println(listOfAllIntegers);      //[1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
+**[⬆ Back to Top](#table-of-contents)**
+
 10. ### Usage of map vs flatMap
 
 We can use map() operation when we have a stream of objects, and we need to get some unique value for each element in
@@ -427,7 +436,7 @@ In case of flatMap(), a one-to-many mapping is created where for each input elem
 values, and then we flatten the values from all such input streams into a single output stream. For example, we may
 write program to find all district words from all lines in a text file.
 
-
+**[⬆ Back to Top](#table-of-contents)**
 
 ### Reference
 
