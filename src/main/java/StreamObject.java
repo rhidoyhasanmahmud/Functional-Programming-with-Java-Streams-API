@@ -95,6 +95,6 @@ public class StreamObject {
                 .forEach(System.out::println);
         // Afghanistan
 
-        
+
     }
 }
