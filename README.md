@@ -8,6 +8,10 @@
 |2  | [Stream vs Collection](#Stream-vs-Collection)|
 |3  | [Creating Streams](#Creating-Streams)|
 |4  | [Stream Collectors](#Stream-Collectors)|
+|5  | [Stream Operations](#Stream-Operations)|
+|6  | [Stream Short circuit Operations](#Stream-Short-circuit-Operations)|
+|7  | [Parallel Stream](#Parallel-Stream)|
+|8  | [Stream Operations](#Stream-Operations)|
 
 1. ### What is Stream?
 
@@ -280,7 +284,7 @@ public class AllStreamOperations {
 }
 ```
 
-6. ### Stream Short-circuit Operations
+6. ### Stream Short circuit Operations
 
 Though stream operations are performed on all elements inside a collection satisfying a Predicate, it is often desired
 to break the operation whenever a matching element is encountered during iteration.
